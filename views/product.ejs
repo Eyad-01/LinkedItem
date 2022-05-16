@@ -1,0 +1,162 @@
+<%- include('layouts/head.ejs') %>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>LinkedItem | productName</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+        * {
+            font-family: 'Lato', sans-serif;
+        }
+        
+        .small-img-group {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .small-img-col {
+            flex-basis: 25%;
+            cursor: pointer;
+        }
+        
+        .product-section select {
+            display: block;
+            padding: 5px 10px;
+        }
+        
+        .product-section input {
+            width: 50px;
+            height: 40px;
+            padding-left: 10px;
+            font-size: 16px;
+            margin-right: 10px;
+            color: #145369;
+        }
+        
+        h4 {
+            size: 16px;
+        }
+        
+        h6 {
+            color: #2596be;
+        }
+        
+        h1 {
+            color: #145369;
+        }
+        
+        h3 {
+            color: #145369;
+            font-size: 40px;
+        }
+        
+        option {
+            color: #145369;
+        }
+        
+        h2 {
+            color: #041014;
+        }
+        
+        .buy-btn {
+            background: #2596be;
+            color: azure;
+            opacity: 1;
+            transition: 0.3s all;
+            width: 20%;
+            height: 9%;
+            text-align: center;
+            border: azure;
+        }
+        
+        .fav-btn {
+            background: #145369;
+            color: azure;
+            opacity: 1;
+            width: 40%;
+            height: 6%;
+        }
+        
+        .icons .fa {
+            size: 30%;
+            display: inline-block;
+        }
+        
+        .row mt-5 img {
+            padding: 20px;
+        }
+    </style>
+    </head>
+
+    <body>
+        <%- include('layouts/navigation.ejs') %>
+            <main>
+                <section class="container product-section my-5 pt-5">
+                    <div class="row mt-5">
+                        <div class="col-lg-5 col-md-12 col-12">
+                            <img class="img-fluid w-100" src="img/watches/1.jpg" alt="" id="Main">
+                            <div class="small-img-group">
+                                <div class="small-img-col">
+                                    <img class="small-img" src="img/watches/2.jpg" width="100%" alt="">
+                                </div>
+                                <div class="small-img-col">
+                                    <img class="small-img" src="img/watches/3.jpg" width="100%" alt="">
+                                </div>
+                                <div class="small-img-col">
+                                    <img class="small-img" src="img/watches/4.jpg" width="100%" alt="">
+                                </div>
+                                <div class="small-img-col">
+                                    <img class="small-img" src="img/watches/1.jpg" width="100%" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-12">
+                            <h6>Home > Products > Watches</h6>
+                            <h3 class="py-4">Men's Watch</h3>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-o"></i>
+                            </div>
+                            <h2>$149.99</h2>
+                            <select class="my-3">
+                    <option>Select option</option>
+                    <option>option 1</option>
+                    <option>option 2</option>
+                    <option>option 3</option>
+                </select>
+                            <input type="number" value="1">
+                            <button class="buy-btn">Add To Cart</button>
+                            <br><br>
+                            <button class="fav-btn">Add To Favourites</button>
+
+                            <h4 class="mt-5 mb-5">Details</h4>
+                            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                     Ea similique debitis nihil quo voluptatum nostrum explicabo, accusamus deserunt. Odio voluptate ex illum.
+                      Facilis hic similique omnis labore asperiores molestiae maiores!</span>
+
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="mt-5 mb-5">Video Review</h4>
+                        <iframe width="620" height="345" src="https://www.youtube.com/embed/F8O0eImmICg">
+            </iframe>
+                    </div>
+                </section>
+
+                <script>
+                    var mainImg = document.getElementById('Main');
+                    var smallImg = document.getElementsByClassName('small-img');
+
+                    for (let i = 0; i < smallImg.length; i++) {
+                        smallImg[i].onclick = function() {
+                            mainImg.src = smallImg[i].src;
+                        }
+                    }
+                </script>
+
+            </main>
+            <%- include('layouts/foot.ejs') %>

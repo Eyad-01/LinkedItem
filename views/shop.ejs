@@ -1,0 +1,235 @@
+<%- include('layouts/head.ejs') %>
+    <title>Show All</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <style>
+        @charset "UTF-8";
+         :root {
+            --bs-dark: #212529;
+            --bs-dark-rgb: 33, 37, 41;
+            --bs-white-rgb: 255, 255, 255;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+        * {
+            font-family: 'Lato', sans-serif;
+        }
+        
+        .bg-dark {
+            --bs-bg-opacity: 1;
+            background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+        }
+        
+        .py-5 {
+            padding-top: 3rem !important;
+            padding-bottom: 3rem !important;
+        }
+        
+        .container,
+        .container-fluid,
+        .container-xxl,
+        .container-xl,
+        .container-lg,
+        .container-md,
+        .container-sm {
+            width: 100%;
+            padding-right: var(--bs-gutter-x, 0.75rem);
+            padding-left: var(--bs-gutter-x, 0.75rem);
+            margin-right: auto;
+            margin-left: auto;
+        }
+        
+        @media (min-width: 576px) {
+            .container-sm,
+            .container {
+                max-width: 540px;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .container-md,
+            .container-sm,
+            .container {
+                max-width: 720px;
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .container-lg,
+            .container-md,
+            .container-sm,
+            .container {
+                max-width: 960px;
+            }
+        }
+        
+        @media (min-width: 1200px) {
+            .container-xl,
+            .container-lg,
+            .container-md,
+            .container-sm,
+            .container {
+                max-width: 1140px;
+            }
+        }
+        
+        @media (min-width: 1400px) {
+            .container-xxl,
+            .container-xl,
+            .container-lg,
+            .container-md,
+            .container-sm,
+            .container {
+                max-width: 1320px;
+            }
+        }
+        
+        .px-4 {
+            padding-right: 1.5rem !important;
+            padding-left: 1.5rem !important;
+        }
+        
+        .px-lg-5 {
+            padding-right: 3rem !important;
+            padding-left: 3rem !important;
+        }
+        
+        .my-5 {
+            margin-top: 3rem !important;
+            margin-bottom: 3rem !important;
+        }
+        
+        .text-center {
+            text-align: center !important;
+        }
+        
+        .text-white {
+            --bs-text-opacity: 1;
+            color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) !important;
+        }
+        
+        .display-4 {
+            font-size: calc(1.475rem + 2.7vw);
+            font-weight: 300;
+            line-height: 1.2;
+        }
+        
+        @media (min-width: 1200px) {
+            .display-4 {
+                font-size: 3.5rem;
+            }
+        }
+        
+        .fw-bolder {
+            font-weight: bolder !important;
+        }
+    </style>
+    </head>
+
+    <body>
+        <%- include('layouts/navigation.ejs') %>
+
+            <div class="bg-dark py-5">
+                <div class="container px-4 px-lg-5 my-5">
+                    <div class="text-center text-white">
+                        <h1 class="display-4 fw-bolder">All Items</h1>
+                    </div>
+                </div>
+            </div>
+            <!-- Section-->
+            <!--Start Filter Box-->
+            <div style="margin-top: 20px; margin-left:78%;" class="dropdown">
+                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+              Filter products
+            </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Sort Price ASCE</a>
+                    <a class="dropdown-item" href="#">Sort Price Desc</a>
+                    <a class="dropdown-item" href="#">Sort A/Z</a>
+                </div>
+            </div>
+            <!--End Filter Box-->
+            <!-- Product Section Begin -->
+            <section class="product spad">
+                <div class="container">
+                    <div class="row product__filter">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg">
+                                    <ul>
+                                        <li class="product__hover">
+                                            <a href="/product"><img src="https://www.ubuy.com.eg/productimg/?image=aHR0cHM6Ly9tLm1lZGlhLWFtYXpvbi5jb20vaW1hZ2VzL0kvNjFGYTlkaU9vcFMuX0FDX1VMMTUwMF8uanBn.jpg" alt="Armani EXCHANGE tshirt"></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6>Black Armani Exchange tshirt</h6>
+                                    <a href="/product" class="add-cart">+ Add To Cart</a>
+                                    <h5>$50</h5>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix hot-sales">
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg">
+                                    <ul class="product__hover">
+                                        <li>
+                                            <a href="/product"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/228f63b3-95fd-4735-be5d-5005dc72d700/los-angeles-lakers-diamond-icon-edition-dri-fit-nba-swingman-jersey-2mWP2V.png" alt=""></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6>Old Lakers Jersy</h6>
+                                    <a href="/product" class="add-cart">+ Add To Cart</a>
+                                    <h5>$25</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
+                            <div class="product__item sale">
+                                <div class="product__item__pic set-bg">
+                                    <ul class="product__hover">
+                                        <li>
+                                            <a href="/product"><img src="https://images-na.ssl-images-amazon.com/images/I/81nIH2vlmJL.jpg" alt="Nike Vapormax flynit 3"></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6>Nike Vapormax flynit 3</h6>
+                                    <a href="/product" class="add-cart">+ Add To Cart</a>
+                                    <h5>$250</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix hot-sales">
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg">
+                                    <ul class="product__hover">
+                                        <li>
+                                            <a href="/product"><img src="https://fivebooks.com/app/uploads/2010/04/0312273231.01.LZ_.jpg" alt="Moth Smoke"></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6>Moth Smoke</h6>
+                                    <a href="/product" class="add-cart">+ Add To Cart</a>
+                                    <h5>$60</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Product Section End -->
+
+            <%- include('layouts/foot.ejs') %>
