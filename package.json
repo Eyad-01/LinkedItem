@@ -2,13 +2,13 @@
     "dependencies": {
         "ejs": "^3.1.8",
         "express": "^4.18.1",
-        "nodemon": "^2.0.16"
+        "nodemon": "^2.0.16",
+        "serve": "^13.0.2"
     },
     "name": "web-project",
     "version": "1.0.0",
     "description": "Ecommerce website using Node.js and bootStrap",
     "main": "app.js",
-    "devDependencies": {},
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "nodemon app.js",
