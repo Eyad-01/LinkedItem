@@ -12,7 +12,7 @@ app.use(express.static(path.join('public')));
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
-app.use(adminRoutes.routes);
+app.use('/admin', adminRoutes.routes);
 app.use(shopRoutes.routes);
 
 app.use((req, res, next) => {
