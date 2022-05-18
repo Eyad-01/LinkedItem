@@ -14,6 +14,15 @@ router.post('/add-product', (req, res, next) => {
     res.render('add-product');
 });
 
+router.get('/manage-product', (req, res, next) => {
+    res.render('manage-products');
+});
+
+router.post('/manage-product', (req, res, next) => {
+    res.render('manage-products');
+});
+
+
 module.exports = {
     'routes': router,
 };

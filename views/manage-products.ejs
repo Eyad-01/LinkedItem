@@ -1,0 +1,264 @@
+<%- include('layouts/head.ejs') %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>LinkedItems | Manage Products</title>
+    <style>
+        @charset "UTF-8";
+         :root {
+            --bs-dark: #212529;
+            --bs-dark-rgb: 33, 37, 41;
+            --bs-white-rgb: 255, 255, 255;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+        * {
+            box-sizing: border-box;
+            font-family: 'Lato', sans-serif;
+        }
+        
+        #myInput {
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+            margin-top: 12px;
+            text-align: center;
+        }
+        
+        #myTable {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        #myTable th,
+        #myTable td {
+            text-align: left;
+            padding: 12px;
+        }
+        
+        #myTable tr {
+            border-bottom: 1px solid #ddd;
+        }
+        
+        #myTable tr.header,
+        #myTable tr:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .bg-dark {
+            --bs-bg-opacity: 1;
+            background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+        }
+        
+        .py-5 {
+            padding-top: 3rem !important;
+            padding-bottom: 3rem !important;
+        }
+        
+        .container,
+        .container-fluid,
+        .container-xxl,
+        .container-xl,
+        .container-lg,
+        .container-md,
+        .container-sm {
+            width: 100%;
+            padding-right: var(--bs-gutter-x, 0.75rem);
+            padding-left: var(--bs-gutter-x, 0.75rem);
+            margin-right: auto;
+            margin-left: auto;
+        }
+        
+        @media (min-width: 576px) {
+            .container-sm,
+            .container {
+                max-width: 540px;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .container-md,
+            .container-sm,
+            .container {
+                max-width: 720px;
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .container-lg,
+            .container-md,
+            .container-sm,
+            .container {
+                max-width: 960px;
+            }
+        }
+        
+        @media (min-width: 1200px) {
+            .container-xl,
+            .container-lg,
+            .container-md,
+            .container-sm,
+            .container {
+                max-width: 1140px;
+            }
+        }
+        
+        @media (min-width: 1400px) {
+            .container-xxl,
+            .container-xl,
+            .container-lg,
+            .container-md,
+            .container-sm,
+            .container {
+                max-width: 1320px;
+            }
+        }
+        
+        .px-4 {
+            padding-right: 1.5rem !important;
+            padding-left: 1.5rem !important;
+        }
+        
+        .px-lg-5 {
+            padding-right: 3rem !important;
+            padding-left: 3rem !important;
+        }
+        
+        .my-5 {
+            margin-top: 3rem !important;
+            margin-bottom: 3rem !important;
+        }
+        
+        .text-center {
+            text-align: center !important;
+        }
+        
+        .text-white {
+            --bs-text-opacity: 1;
+            color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) !important;
+        }
+        
+        .display-4 {
+            font-size: calc(1.475rem + 2.7vw);
+            font-weight: 300;
+            line-height: 1.2;
+        }
+        
+        @media (min-width: 1200px) {
+            .display-4 {
+                font-size: 3.5rem;
+            }
+        }
+        
+        .fw-bolder {
+            font-weight: bolder !important;
+        }
+        
+        .edit-btn {
+            margin-left: 5%;
+            color: gold;
+        }
+        
+        .edit-btn:hover {
+            color: #212529;
+        }
+        
+        .delete-btn {
+            margin-left: 5px;
+            color: rgba(255, 0, 0, 0.603);
+        }
+        
+        .delete-btn:hover {
+            color: #212529;
+        }
+    </style>
+    </head>
+
+    <body>
+        <%- include('layouts/navigation.ejs') %>
+
+            <div class="bg-dark py-5">
+                <div class="container px-4 px-lg-5 my-5">
+                    <div class="text-center text-white">
+                        <h1 class="display-4 fw-bolder">My Products</h1>
+                    </div>
+                </div>
+            </div>
+
+            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Enter The Product Name" title="Type in a name">
+
+            <table id="myTable">
+                <tr class="header">
+                    <th style="width:25%;">Product Name</th>
+                    <th style="width:25%;">Description</th>
+                    <th style="width:25%;">Quantity</th>
+                    <th style="width:25%;">Actions</th>
+                </tr>
+                <tr>
+                    <td>Lakers Jersy</td>
+                    <td>kobe bryant jersy from the 90s</td>
+                    <td>5</td>
+                    <td>
+                        <a class="edit-btn" href=""><i class="fa fa-edit"></i></a>
+                        <a class="delete-btn" href=""><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Nike Vapormax flykit 3</td>
+                    <td>New Nike Air vapormax flykit 3 running track shoes</td>
+                    <td>7</td>
+                    <td>
+                        <a class="edit-btn" href=""><i class="fa fa-edit"></i></a>
+                        <a class="delete-btn" href=""><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Armani exchange tshirt</td>
+                    <td>Black cotton graphics tshirt with logo in the middle of the tshirt</td>
+                    <td>4</td>
+                    <td>
+                        <a class="edit-btn" href=""><i class="fa fa-edit"></i></a>
+                        <a class="delete-btn" href=""><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>HITLER</td>
+                    <td>Biography of Hitler by Ian Kershaw.</td>
+                    <td>2 <span style="color: red;"> &nbsp &nbsp &nbsp &nbsp Low in stock</span> </td>
+                    <td>
+                        <a class="edit-btn" href=""><i class="fa fa-edit"></i></a>
+                        <a class="delete-btn" href=""><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+
+            </table>
+
+            <script>
+                function myFunction() {
+                    var input, filter, table, tr, td, i, txtValue;
+                    input = document.getElementById("myInput");
+                    filter = input.value.toUpperCase();
+                    table = document.getElementById("myTable");
+                    tr = table.getElementsByTagName("tr");
+                    for (i = 0; i < tr.length; i++) {
+                        td = tr[i].getElementsByTagName("td")[0];
+                        if (td) {
+                            txtValue = td.textContent || td.innerText;
+                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                tr[i].style.display = "";
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                        }
+                    }
+                }
+            </script>
+            <%- include('layouts/foot.ejs') %>
