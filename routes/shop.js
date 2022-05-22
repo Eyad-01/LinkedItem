@@ -1,36 +1,42 @@
-const path = require('path');
+const bodyParser = require( 'body-parser' )
 
 const express = require('express');
 
-const router = express.Router();
+const app = express();
+app.use( express.static( "public" ) );
+app.set( "view engine", "ejs" );
+app.use( bodyParser.urlencoded( {
+    extended: true
+} ) );
 
-router.use(express.static(path.join('public')));
 
-router.get('/signIn', (req, res, next) => {
+app.get('/signIn', (req, res) => {
     res.render('SignIn');
 });
 
-router.get('/ContactUs', (req, res, next) => {
+app.get('/ContactUs', (req, res ) => {
     res.render('ContactUs');
 });
 
-router.get('/CreateAccount', (req, res, next) => {
+app.get('/CreateAccount', (req, res ) => {
     res.render('CreateAccount');
 });
 
-router.get('/shop', (req, res, next) => {
+app.get('/shop', (req, res ) => {
     res.render('shop');
 });
 
-router.get('/product', (req, res, next) => {
+app.get('/product', (req, res ) => {
     res.render('product');
 });
 
-router.get('/', (req, res, next) => {
+app.get('/', (req, res ) => {
     res.render('index');
-});
+} );
 
-
+app.post( '/CreateAccount', ( req, res ) => {
+    console.log( req.body.Username );
+} );
 module.exports = {
-    'routes': router
+    'routes': app
 };

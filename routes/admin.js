@@ -1,28 +1,32 @@
-const path = require('path');
+const bodyParser = require( 'body-parser' )
 
-const express = require('express');
+const express = require( 'express' );
 
-const router = express.Router();
+const app = express();
+app.use( express.static( "public" ) );
+app.set( "view engine", "ejs" );
+app.use( bodyParser.urlencoded( {
+    extended: true
+} ) );
 
-router.use(express.static(path.join('public')));
 
-router.get('/add-product', (req, res, next) => {
+app.get('/add-product', (req, res) => {
     res.render('add-product');
 });
 
-router.post('/add-product', (req, res, next) => {
+app.post('/add-product', (req, res) => {
     res.render('add-product');
 });
 
-router.get('/manage-product', (req, res, next) => {
+app.get('/manage-product', (req, res) => {
     res.render('manage-products');
 });
 
-router.post('/manage-product', (req, res, next) => {
+app.post('/manage-product', (req, res) => {
     res.render('manage-products');
 });
 
 
 module.exports = {
-    'routes': router,
+    'routes': app,
 };
