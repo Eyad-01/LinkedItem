@@ -40,3 +40,10 @@ app.post( '/CreateAccount', ( req, res ) => {
 module.exports = {
     'routes': app
 };
+
+app.post( '/ContactUs', ( req, res ) => {
+    console.log( req.body.phone );
+} );
+module.exports = {
+    'routes': app
+};
