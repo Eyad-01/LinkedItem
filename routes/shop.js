@@ -64,9 +64,6 @@ app.get('/', (req, res ) => {
     res.render('index');
 } );
 
-app.post( '/CreateAccount', ( req, res ) => {
-    console.log( req.body.Username );
-} );
 
 
 app.post('/ContactUs',function(req,res) {
@@ -88,6 +85,33 @@ app.post('/ContactUs',function(req,res) {
     } );
     connection.execSql( request );
     return res.redirect('/ContactUs');
+
+
+});
+
+
+
+app.post('/CreateAccount',function(req,res) {
+    var a=req.body.fname;
+    var b=req.body.sname;
+    var c=req.body.phone;
+    var d=req.body.email;
+    var e=req.body.password;
+    var f=0;
+   var request = new Request( "insert into users(user_first_name,user_last_name,user_phone_no,user_email,user_password,user_type)values('"+a+"','"+b+"','"+c+"','"+d+"','"+e+"','"+f+"')", function ( err ) {
+        if ( err ) {
+            console.log( err );
+        }
+        console.log("1 record inserted");
+
+    });
+
+    // Close the connection after the final event emitted by the request, after the callback passes
+    request.on( "requestCompleted", function ( rowCount, more ) {
+        connection.close();
+    } );
+    connection.execSql( request );
+    return res.redirect('/SignIn');
     
 
 });
