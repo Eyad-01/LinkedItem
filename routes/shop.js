@@ -1,7 +1,6 @@
 const bodyParser = require( 'body-parser' );
 const { request } = require('express');
 const alert = require( 'alert' );
-
 var Connection = require( 'tedious' ).Connection;
 var config = {
     server: 'linkeditem.database.windows.net', //update me
@@ -142,10 +141,7 @@ app.post('/ContactUs',function(req,res) {
             return res.redirect('/shop');
           } else
           {
-            alert( 
-              'invalid username or password!'
-            );
-            return res.redirect( '/signIn' );
+            return res.redirect('/signIn');
           }
         }
 });
