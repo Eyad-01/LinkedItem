@@ -27,7 +27,7 @@ connection.connect();
 
 var Request = require( 'tedious' ).Request
 
-
+const fs = require("fs");
 
 const express = require('express');
 
@@ -63,6 +63,44 @@ app.get('/', (req, res ) => {
     res.render('index');
 } );
 
+app.post( '/CreateAccount', ( req, res ) => {
+   const username = req.body.username;
+   const phonenumber= req.body.phonenumber;
+   const email= req.body.email;
+   const password= req.body.password;
+    fs.readFile("./data/users.json", (err, data) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send("Error in reading file");
+      } else {
+        const users = JSON.parse(data);
+        const user = users.find((u) => {
+          return u.email === email && u.username === username ;
+        });
+        if (user) {
+          res.status(409).send("User already exists");
+        } else {
+          // id serial primary key
+          const newUser = {
+            id: users.length + 1,
+            username,
+            password,
+            phonenumber,
+            email,
+          };
+            users.push(newUser);
+            fs.writeFile("./data/users.json", JSON.stringify(users), (err) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    //201 created
+                    return res.redirect('/SignIn')
+                }
+            });
+        }
+      }
+    });
+});
 
 
 app.post('/ContactUs',function(req,res) {
@@ -77,7 +115,6 @@ app.post('/ContactUs',function(req,res) {
         console.log("1 record inserted");
 
     });
-
     // Close the connection after the final event emitted by the request, after the callback passes
     request.on( "requestCompleted", function ( rowCount, more ) {
         connection.close();
@@ -88,33 +125,27 @@ app.post('/ContactUs',function(req,res) {
 
 });
 
-
-
-app.post('/CreateAccount',function(req,res) {
-    var a=req.body.fname;
-    var b=req.body.sname;
-    var c=req.body.phone;
-    var d=req.body.email;
-    var e=req.body.password;
-    var f=0;
-   var request = new Request( "insert into users(user_first_name,user_last_name,user_phone_no,user_email,user_password,user_type)values('"+a+"','"+b+"','"+c+"','"+d+"','"+e+"','"+f+"')", function ( err ) {
+  app.post('/signIn',(req,res)=>{
+    const username = req.body.username;
+    const password = req.body.password;
+    fs.readFile("./data/users.json", (err, data) => {
         if ( err ) {
             console.log( err );
-        }
-        console.log("1 record inserted");
-
+          res.status(500).send("Error reading file");
+        } else {
+          const users = JSON.parse(data);
+          const user = users.find((u) => {
+            return u.username === username && u.password === password;
     });
-
-    // Close the connection after the final event emitted by the request, after the callback passes
-    request.on( "requestCompleted", function ( rowCount, more ) {
-        connection.close();
-    } );
-    connection.execSql( request );
-    return res.redirect('/SignIn');
-
-
+          if (user) {
+            return res.redirect('/shop');
+          } else {
+            res.status(401).send("Invalid username or password");
+          }
+        }
 });
 
+    });
 
 module.exports = {
     'routes': app
