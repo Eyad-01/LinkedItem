@@ -1,6 +1,6 @@
-<%- include('layouts/head.ejs') %>
+<%- include('../layouts/head.ejs') %>
 
-    <title>Show All</title>
+    <title>LinkedItems | All Products</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
@@ -137,7 +137,7 @@
     </head>
 
     <body>
-        <%- include('layouts/navigation.ejs') %>
+        <%- include('../layouts/navigation.ejs') %>
 
             <div class="bg-dark py-5">
                 <div class="container px-4 px-lg-5 my-5">
@@ -162,75 +162,37 @@
             <!-- Product Section Begin -->
             <section class="product spad">
                 <div class="container">
-                    <div class="row product__filter">
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg">
-                                    <ul>
-                                        <li class="product__hover">
-                                            <a href="/product"><img src="https://www.ubuy.com.eg/productimg/?image=aHR0cHM6Ly9tLm1lZGlhLWFtYXpvbi5jb20vaW1hZ2VzL0kvNjFGYTlkaU9vcFMuX0FDX1VMMTUwMF8uanBn.jpg" alt="Armani EXCHANGE tshirt"></a>
-                                        </li>
-                                    </ul>
+                    <% if(prods.length >  0) {%>
+                        <div class="row product__filter">
+                            <% for (let product of prods) { %>
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
+                                    <div class="product__item">
+                                        <div class="product__item__pic set-bg">
+                                            <ul>
+                                                <li class="product__hover">
+                                                    <a href="<%=product._id%>"><img src="<%= product.imageUrl %>" alt="<%= product.name%>"></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="product__item__text">
+                                            <h6 style="color: black;">
+                                                <%= product.name %>
+                                            </h6>
+                                            <a href="<%=product._id%>" class="add-cart">+ Add To Cart</a>
+                                            <h5>
+                                                $
+                                                <%= product.price %>
+                                            </h5>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="product__item__text">
-                                    <h6>Black Armani Exchange tshirt</h6>
-                                    <a href="/product" class="add-cart">+ Add To Cart</a>
-                                    <h5>$50</h5>
-
-                                </div>
-                            </div>
+                                <% } %>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix hot-sales">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg">
-                                    <ul class="product__hover">
-                                        <li>
-                                            <a href="/product"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/228f63b3-95fd-4735-be5d-5005dc72d700/los-angeles-lakers-diamond-icon-edition-dri-fit-nba-swingman-jersey-2mWP2V.png" alt=""></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6>Old Lakers Jersy</h6>
-                                    <a href="/product" class="add-cart">+ Add To Cart</a>
-                                    <h5>$25</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
-                            <div class="product__item sale">
-                                <div class="product__item__pic set-bg">
-                                    <ul class="product__hover">
-                                        <li>
-                                            <a href="/product"><img src="https://images-na.ssl-images-amazon.com/images/I/81nIH2vlmJL.jpg" alt="Nike Vapormax flynit 3"></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6>Nike Vapormax flynit 3</h6>
-                                    <a href="/product" class="add-cart">+ Add To Cart</a>
-                                    <h5>$250</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix hot-sales">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg">
-                                    <ul class="product__hover">
-                                        <li>
-                                            <a href="/product"><img src="https://fivebooks.com/app/uploads/2010/04/0312273231.01.LZ_.jpg" alt="Moth Smoke"></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6>Moth Smoke</h6>
-                                    <a href="/product" class="add-cart">+ Add To Cart</a>
-                                    <h5>$60</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        <% }else{ %>
+                            <h1 style="text-align: center;">No Products found</h1>
+                            <%}%>
                 </div>
             </section>
             <!-- Product Section End -->
 
-            <%- include('layouts/foot.ejs') %>
+            <%- include('../layouts/foot.ejs') %>

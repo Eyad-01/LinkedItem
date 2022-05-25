@@ -1,0 +1,110 @@
+<%- include('../layouts/head.ejs') %>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>LinkedItem |
+        <%= product.name %>
+    </title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+        * {
+            font-family: 'Lato', sans-serif;
+        }
+        
+        .product-section input {
+            width: 50px;
+            height: 40px;
+            padding-left: 10px;
+            font-size: 16px;
+            margin-right: 10px;
+            color: #145369;
+        }
+        
+        h4 {
+            size: 16px;
+        }
+        
+        h6 {
+            color: #2596be;
+        }
+        
+        h1 {
+            color: #145369;
+        }
+        
+        h3 {
+            color: #145369;
+            font-size: 40px;
+        }
+        
+        h2 {
+            color: #041014;
+        }
+        
+        .buy-btn {
+            background: #2596be;
+            color: azure;
+            opacity: 1;
+            transition: 0.3s all;
+            width: 20%;
+            height: 9%;
+            text-align: center;
+            border: azure;
+        }
+        
+        .fav-btn {
+            background: #145369;
+            color: azure;
+            opacity: 1;
+            width: 40%;
+            height: 6%;
+        }
+        
+        .icons .fa {
+            size: 30%;
+            display: inline-block;
+        }
+    </style>
+    </head>
+
+    <body>
+        <%- include('../layouts/navigation.ejs') %>
+            <main>
+                <section class="container product-section my-5 pt-5">
+                    <div class="row mt-5">
+                        <div class="col-lg-5 col-md-12 col-12">
+                            <img class="img-fluid w-100" src="<%= product.imageUrl %>" alt="<%= product.name %>">
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-12">
+                            <h6><a href="/">Home</a> > <a href="products">Products</a> >
+                                <a href="<%= product._id %>">
+                                    <%= product.name%>
+                                </a>
+                            </h6>
+                            <h3 class="py-4">
+                                <%= product.name %>
+                            </h3>
+                            <h2>$
+                                <%= product.price %>
+                            </h2>
+                            <br>
+                            <input type="number" value="1">
+                            <button class="buy-btn">Add To Cart</button>
+                            <br><br>
+                            <h4 class="mt-5 mb-5">Details</h4>
+                            <span><%= product.description %></span>
+
+                        </div>
+                    </div>
+                    <% if(product.videoUrl != "") {%>
+                        <div>
+                            <h4 class="mt-5 mb-5">Video Review</h4>
+                            <iframe width="620" height="345" src="https://www.youtube.com/embed/<%= product.videoUrl %>"></iframe>
+                        </div>
+                        <%}%>
+                </section>
+
+
+            </main>
+            <%- include('../layouts/foot.ejs') %>

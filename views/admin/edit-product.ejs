@@ -1,0 +1,188 @@
+<%- include('../layouts/head.ejs') %>
+    <title>LinkedItems | add product</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+        * {
+            margin: 0;
+            font-family: 'Lato', sans-serif;
+            box-sizing: border-box;
+        }
+        
+        html,
+        body {
+            height: 100%;
+        }
+        
+        #registration-page {
+            height: 100%;
+            background: #e5e2e2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: scroll;
+        }
+        
+        .signup-form {
+            flex: 1;
+            max-width: 600px;
+            border-radius: 10px;
+            background-color: #EFF0F1;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        
+        .form-header {
+            padding: 15px 0;
+            border-bottom: 1px solid #2f80a0;
+            background-color: #2f80a0;
+        }
+        
+        .form-header h1 {
+            text-align: center;
+            color: #ffffff;
+            font-weight: normal;
+            letter-spacing: -1px;
+            font-size: 1.75em;
+        }
+        
+        .form-header h2 {
+            font-weight: normal;
+            letter-spacing: -1px;
+            font-size: 18px;
+            text-align: center;
+            color: #ffffff;
+        }
+        
+        .form-body {
+            background: white;
+            padding: 5px 10px;
+        }
+        
+        .row {
+            display: flex;
+        }
+        
+        .input-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin: 20px 5px;
+        }
+        
+        .input-groups {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin: 20px 5px;
+            box-sizing: content-box;
+        }
+        
+        .form-footer {
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            background-color: #2f80a0;
+            font-size: 17px;
+            border: none;
+            border-radius: 5px;
+            color: #ffffff;
+            cursor: pointer;
+        }
+        
+        label {
+            color: #6E6E6E;
+            font-size: 17px;
+            font-weight: 500;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            font-size: 18px;
+            height: 34px;
+            padding-left: 10px;
+            padding-right: 10px;
+            color: #666;
+            border: 1px solid #d6d6d6;
+            border-radius: 4px;
+            background: white;
+            outline: none;
+        }
+        
+        textarea {
+            resize: none;
+            height: 100px;
+        }
+    </style>
+    </head>
+
+    <body>
+        <%- include('../layouts/navigation.ejs') %>
+            <section id="registration-page" style="height: 800px;">
+                <form class="signup-form" action="/admin/edit-product" method="POST">
+
+                    <div class="form-header">
+                        <h1>update
+                            <% if (editing) { %>
+                                <span style="font-size: 45px;"> <%= product.name %> </span>
+                                <% } %>
+                        </h1>
+                    </div>
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="input-group">
+                                <label>Product Name </label>
+                                <input type="text" value="<% if (editing) { %><%= product.name %><% } %>" name="name" placeholder="e.g.T-shirt">
+                            </div>
+                            <div class="input-groups">
+                                <label>Price in dollar</label>
+                                <input type="text" name="price" value="<% if (editing) { %><%= product.price %><% } %>" placeholder="e.g.20">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-group">
+                                <label>Description</label>
+                                <input type="text" name="description" value="<% if (editing) { %><%= product.description %><% } %>" placeholder="e.g. Blue, Long sleeves">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-group">
+                                <label>Image URL </label>
+                                <input type="text" name="imageUrl" value="<% if (editing) { %><%= product.imageUrl %><% } %>" placeholder="e.g. https://Blue.png">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group">
+                                <label>Video URL </label>
+                                <input type="text" name="videoUrl" value="<% if (editing) { %><%= product.videoUrl %><% } %>" placeholder="youtube video code">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group">
+                                <label>Quantity </label>
+                                <input type="text" name="quantity" value="<% if (editing) { %><%= product.quantity %><% } %>" placeholder="e.g. 5, 7">
+                            </div>
+                        </div>
+
+                        <% if (editing) { %>
+                            <input type="hidden" value="<%= product._id %>" name="productId">
+                            <% } %>
+
+                    </div>
+                    <div class="form-footer">
+                        <button class="btn">update</button>
+                    </div>
+                </form>
+            </section>
+
+            <%- include('../layouts/foot.ejs') %>
