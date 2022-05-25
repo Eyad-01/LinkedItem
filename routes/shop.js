@@ -1,5 +1,6 @@
 const bodyParser = require( 'body-parser' );
 const { request } = require('express');
+const alert = require( 'alert' );
 
 var Connection = require( 'tedious' ).Connection;
 var config = {
@@ -139,8 +140,12 @@ app.post('/ContactUs',function(req,res) {
     });
           if (user) {
             return res.redirect('/shop');
-          } else {
-            res.status(401).send("Invalid username or password");
+          } else
+          {
+            alert( 
+              'invalid username or password!'
+            );
+            return res.redirect( '/signIn' );
           }
         }
 });

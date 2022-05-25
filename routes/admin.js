@@ -1,6 +1,5 @@
 const bodyParser = require( 'body-parser' );
 const { request } = require('express');
-
 var Connection = require( 'tedious' ).Connection;
 var config = {
     server: 'linkeditem.database.windows.net', //update me
