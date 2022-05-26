@@ -1,36 +1,12 @@
 const bodyParser = require( 'body-parser' );
 const { request } = require('express');
-
-var Connection = require( 'tedious' ).Connection;
-var config = {
-    server: 'linkeditem.database.windows.net', //update me
-    authentication: {
-        type: 'default',
-        options: {
-            userName: 'admin-Eyad', //update me
-            password: 'Linked-item' //update me
-        }
-    },
-    options: {
-        // If you are on Microsoft Azure, you need encryption:
-        encrypt: true,
-        database: 'linkeditem' //update me
-    }
-};
-var connection = new Connection( config );
-connection.on( 'connect', function ( err ) {
-    // If no error, then good to proceed.  
-    console.log( "Connected" );
-
-} );
-connection.connect();
-
-var Request = require( 'tedious' ).Request;
-
-
-
-const express = require('express');
+'use strict';
+var express = require('express');
+var router = express.Router();
+var sql = require("mssql");
+var dbConfig = require('../Database/dbConnection');
 const app = express();
+
 
 app.use( express.static( "public" ) );
 app.set( "view engine", "ejs" );
@@ -47,35 +23,45 @@ app.post('/add-product', (req, res) => {
     res.render('add-product');
 });
 
-app.get('/manage-product', (req, res) => {
-    res.render('manage-products');
-});
-
-app.post('/manage-product', (req, res) => {
-    res.render('manage-products');
-});
 
 app.get('/manage-company', (req, res) => {
-    res.render('manage-company');
-});
-
-
-/* Add Student */
-app.post('/addCompany', function (req, res) {
-        var request= new Request("INSERT INTO Company(Company_id,Company_type,Company_name,company_address,company_phone_no,company_email) VALUES('"+1+"','" + req.body.type + "', '" + req.body.name + "', '" + req.body.address +"','" +req.body.phone +"', '" + req.body.email + "')", function ( err ) {
-        if ( err ) {
-            console.log( err );
+    sql.connect(dbConfig.dbConnection(), function(err){
+      if(err){
+        console.log("ERROR CONNECT: ", err);
+      }
+  
+      let sqlRequest = new sql.Request();
+      let sqlShowTable = 'SELECT * FROM Company ';
+  
+      sqlRequest.query(sqlShowTable, function(err, data){
+        if(err){
+          console.log("ERROR SQL SHOW: ", err);
+        } else {
+            res.render('manage-company', { title: 'Company', data: data});
+            sql.close();
         }
-        console.log("1 record inserted");
-    });
+        
+      });// </ sql.Request >
+    });// </ sql.connect >
+  });
 
-        request.on( "requestCompleted", function ( rowCount, more ) {
-            connection.close();
-        } );
-        connection.execSql( request );
-        return res.redirect('/admin/manage-company');
 
+app.post('/addCompany',function(req,res) {
+    var a=req.body.type;
+    var b=req.body.name;
+    var c=req.body.address;
+    var d=req.body.phone;
+    var e=req.body.email;
+
+    sql.connect(dbConfig.dbConnection()).then(() => {
+        return sql.query("INSERT INTO company VALUES('" +a+ "', '" +b+ "','"+c+"','"+d+"','"+e+"')");
+    }).then(result => {
+        res.redirect('back')
+    }).catch(err => {
+        console.log(err)
+    })
 });
+
 
 
 module.exports = {

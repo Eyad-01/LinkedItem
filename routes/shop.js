@@ -1,38 +1,13 @@
 const bodyParser = require( 'body-parser' );
 const { request } = require('express');
-
-var Connection = require( 'tedious' ).Connection;
-var config = {
-    server: 'linkeditem.database.windows.net', //update me
-    authentication: {
-        type: 'default',
-        options: {
-            userName: 'admin-Eyad', //update me
-            password: 'Linked-item' //update me
-        }
-    },
-    options: {
-        // If you are on Microsoft Azure, you need encryption:
-        encrypt: true,
-        database: 'linkeditem' //update me
-    }
-};
-var connection = new Connection( config );
-connection.on( 'connect', function ( err ) {
-    // If no error, then good to proceed.  
-    console.log( "Connected" );
-
-} );
-connection.connect();
-
-var Request = require( 'tedious' ).Request
-
-
-
-const express = require('express');
-
-
+'use strict';
+var express = require('express');
+var router = express.Router();
+var sql = require("mssql");
+var dbConfig = require('../Database/dbConnection');
 const app = express();
+
+
 app.use( express.static( "public" ) );
 app.set( "view engine", "ejs" );
 app.use( bodyParser.urlencoded( {
@@ -60,10 +35,27 @@ app.get('/product', (req, res ) => {
     res.render('product');
 });
 
+
+
 app.get('/', (req, res ) => {
     res.render('index');
 } );
 
+app.post('/CreateAccount',function(req,res) {
+    var a=req.body.fname;
+    var b=req.body.lname;
+    var c=req.body.adress;
+    var d=req.body.phone;
+    var e=req.body.email;
+    var f=req.body.password;
+    sql.connect(dbConfig.dbConnection()).then(() => {
+        return sql.query("INSERT INTO users([user_first_name],[user_last_name],[user_phone_no],[user_email],[user_address],[user_password]) VALUES('" +a+ "', '" +b+ "','"+d+"','"+e+"','"+c+"','"+f+"')");
+    }).then(result => {
+        res.redirect('back')
+    }).catch(err => {
+        console.log(err)
+    })
+});
 
 
 app.post('/ContactUs',function(req,res) {
@@ -71,52 +63,35 @@ app.post('/ContactUs',function(req,res) {
     var b=req.body.phone;
     var c=req.body.email;
     var d=req.body.message;
-   var request = new Request( "insert into contact_us(contact_name,contact_phone_no,contact_email,contact_message)values('"+a+"','"+b+"','"+c+"','"+d+"')", function ( err ) {
-        if ( err ) {
-            console.log( err );
-        }
-        console.log("1 record inserted");
-
-    });
-
-    // Close the connection after the final event emitted by the request, after the callback passes
-    request.on( "requestCompleted", function ( rowCount, more ) {
-        connection.close();
-    } );
-    connection.execSql( request );
-    return res.redirect('/ContactUs');
-
-
+    sql.connect(dbConfig.dbConnection()).then(() => {
+        return sql.query("INSERT INTO contact_us(contact_name,contact_phone_no,contact_email,contact_message) VALUES('" +a+ "', '" +b+ "','"+c+"','"+d+"')");
+    }).then(result => {
+        res.redirect('back')
+    }).catch(err => {
+        console.log(err)
+    })
 });
 
-
-
-app.post('/CreateAccount',function(req,res) {
-    var a=req.body.fname;
-    var b=req.body.sname;
-    var c=req.body.phone;
-    var d=req.body.email;
-    var e=req.body.password;
-    var f=0;
-   var request = new Request( "insert into users(user_first_name,user_last_name,user_phone_no,user_email,user_password,user_type)values('"+a+"','"+b+"','"+c+"','"+d+"','"+e+"','"+f+"')", function ( err ) {
-        if ( err ) {
-            console.log( err );
+app.get('/past-orders', (req, res) => {
+    sql.connect(dbConfig.dbConnection(), function(err){
+      if(err){
+        console.log("ERROR CONNECT: ", err);
+      }
+  
+      let sqlRequest = new sql.Request();
+      let sqlShowTable = 'SELECT * FROM Orders_details ';
+  
+      sqlRequest.query(sqlShowTable, function(err, data){
+        if(err){
+          console.log("ERROR SQL SHOW: ", err);
+        } else {
+            res.render('past-orders', { title: 'Orders', data: data});
+            sql.close();
         }
-        console.log("1 record inserted");
-
-    });
-
-    // Close the connection after the final event emitted by the request, after the callback passes
-    request.on( "requestCompleted", function ( rowCount, more ) {
-        connection.close();
-    } );
-    connection.execSql( request );
-    return res.redirect('/SignIn');
-    
-
-});
-
-
+        
+      });// </ sql.Request >
+    });// </ sql.connect >
+  })
 module.exports = {
     'routes': app
 };
