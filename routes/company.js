@@ -43,7 +43,7 @@ async function AddproductAsyncFunction( Company_id, Category_id, product_name, p
         productAsyncFunction( Company_id, Product_Instock );
         sql.close();
     } catch ( error ) {
-        console.log( error.message );
+        console.log( error );
         sql.close();
     }
 };
@@ -55,7 +55,7 @@ async function productAsyncFunction( id, instock ) {
             .query( "UPDATE company_product SET item_Instock=@instock WHERE Company_id=@Company_id" );
         sql.close();
     } catch ( error ) {
-        console.log( error.message );
+        console.log( error );
         sql.close();
     }
 };
