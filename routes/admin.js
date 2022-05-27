@@ -1,13 +1,23 @@
 const bodyParser = require( 'body-parser' );
-const { request } = require('express');
 'use strict';
-var express = require('express');
-var router = express.Router();
+var express = require( 'express' );
 var sql = require("mssql");
-var dbConfig = require('../Database/dbConnection');
+const sqlConfig = {
+  user: "SA",
+  password: "Docker@123",
+  database: "master",
+  server: "localhost",
+  pool: {
+    max: 10,
+    min: 0,
+    idleTimeoutMillis: 30000
+  },
+  options: {
+    encrypt: true, // for azure
+    trustServerCertificate: false // change to true for local dev / self-signed certs
+  }
+};
 const app = express();
-
-
 app.use( express.static( "public" ) );
 app.set( "view engine", "ejs" );
 app.use( bodyParser.urlencoded( {
@@ -20,50 +30,71 @@ app.get('/add-product', (req, res) => {
 });
 
 app.post('/add-product', (req, res) => {
-    res.render('add-product');
+  try {
+    productAsyncFunction();
+    res.redirect( 'back' );
+  } catch {
+    console.log( "ERROR SQL SHOW: " );
+  }
 });
 
 
-app.get('/manage-company', (req, res) => {
-    sql.connect(dbConfig.dbConnection(), function(err){
-      if(err){
-        console.log("ERROR CONNECT: ", err);
+app.get( '/manage-company', ( req, res ) => {
+      try {
+        selectcompanyfunction().then( function ( result ) {
+          res.render( 'manage-company', {
+            title: 'Company',
+            data: result
+          } );
+        } );
+      } catch {
+        console.log( "ERROR SQL SHOW: " );
       }
-  
-      let sqlRequest = new sql.Request();
-      let sqlShowTable = 'SELECT * FROM Company ';
-  
-      sqlRequest.query(sqlShowTable, function(err, data){
-        if(err){
-          console.log("ERROR SQL SHOW: ", err);
-        } else {
-            res.render('manage-company', { title: 'Company', data: data});
+} );
+
+app.post( '/addCompany', function ( req, res ) {
+  try {
+    var a = req.body.type;
+    var b = req.body.name;
+    var c = req.body.address;
+    var d = req.body.phone;
+    var e = req.body.email;
+    companyAsyncFunction( a, b, c, d, e );
+    res.redirect( 'manage-company' );
+  } catch ( err ) {
+    console.log( err.message );
+  }
+} );
+
+      async function selectcompanyfunction() {
+          try {
+            // make sure that any items are correctly URL encoded in the connection string
+            let pool = await sql.connect( sqlConfig )
+            let result1 = await pool.request().query( "SELECT TOP (1000) * FROM Company" );
             sql.close();
+            return result1;
+            }
+            catch ( err ) {
+              console.log( err.message );
+              sql.close();
+
         }
-        
-      });// </ sql.Request >
-    });// </ sql.connect >
-  });
+        };
 
-
-app.post('/addCompany',function(req,res) {
-    var a=req.body.type;
-    var b=req.body.name;
-    var c=req.body.address;
-    var d=req.body.phone;
-    var e=req.body.email;
-
-    sql.connect(dbConfig.dbConnection()).then(() => {
-        return sql.query("INSERT INTO company VALUES('" +a+ "', '" +b+ "','"+c+"','"+d+"','"+e+"')");
-    }).then(result => {
-        res.redirect('back')
-    }).catch(err => {
-        console.log(err)
-    })
-});
-
+        async function companyAsyncFunction( type, name, address, phone, email ) {
+          try {
+            let pool = await sql.connect( sqlConfig );
+            let result1 = await pool
+              .request().input( "type", sql.Char, type ).input( "name", sql.Char, name ).input( "address", sql.Char, address ).input( "phone", sql.Char, phone ).input( "email", sql.Char, email )
+              .query( "INSERT INTO company (Company_type,Company_name,company_address,company_phone_no,company_email) VALUES(@type,@name,@address,@phone,@email)" );
+            sql.close();
+          } catch ( error ) {
+            console.log( error.message );
+            sql.close();
+          }
+        };
 
 
 module.exports = {
-    'routes': app,
+    'routes': app
 };
